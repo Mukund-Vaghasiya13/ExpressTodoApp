@@ -49,9 +49,13 @@ const Login =  asyncHandler( async(req,res)=>{
         throw new ApiError(400,"Server Problem",false)
     }
 
+    const option = {
+        httpOnly: true,
+        secure: true
+    }
     //TODO: send Cookies
-    res.status(200).json(
-        new ApiResponseHnadler(200,{token},"Login successfull",true)
+    res.status(200).cookie("AccessToken",token,option).json(
+        new ApiResponseHnadler(200,token,"Login successfull",true)
     )
 
 })
