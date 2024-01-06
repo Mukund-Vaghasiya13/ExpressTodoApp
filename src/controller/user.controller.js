@@ -60,8 +60,33 @@ const Login =  asyncHandler( async(req,res)=>{
 
 })
 
+const Logout =asyncHandler(async(req,res)=>{
+    const user = req.user
+
+    if(!user){
+        throw new ApiError(400,"Something went wrong",false)
+    }
+
+    const newUser = await User.findById(user._id)
+
+    if(!user){
+        throw new ApiError(400,"Invalid user",false)
+    }
+
+    const option = {
+        httpOnly:true,
+        secure:true
+    }
+
+    res.status(200).clearCookie("AccessToken",option).json(
+        new ApiResponseHnadler(200,{},"Logout successfull",true)
+    )
+
+
+})
 
 export {
     RegisterUser,
-    Login
+    Login,
+    Logout
 }
