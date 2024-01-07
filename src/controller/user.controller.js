@@ -21,7 +21,7 @@ const RegisterUser = asyncHandler( async (req,res)=>{
 
 
    res.status(201).json(
-    new ApiResponseHnadler(201,user,"user Created",true)
+    new ApiResponseHnadler(201,null,"user Created",true)
    )
 })
 
@@ -79,7 +79,7 @@ const Logout =asyncHandler(async(req,res)=>{
     }
 
     res.status(200).clearCookie("AccessToken",option).json(
-        new ApiResponseHnadler(200,{},"Logout successfull",true)
+        new ApiResponseHnadler(200,null,"Logout successfull",true)
     )
 
 
