@@ -1,5 +1,5 @@
 import { asyncHandler } from "../utils/AsyncHandler.js"
-import { User } from "../modles/usermodle.js"
+import { User } from "../modles/user.modle.js"
 import { ApiError } from "../utils/apiErrorHandler.js"
 import { ApiResponseHnadler } from "../utils/apiResponseHandler.js"
 
