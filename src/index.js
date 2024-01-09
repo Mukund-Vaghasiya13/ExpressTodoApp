@@ -1,5 +1,5 @@
 import app from "./app.js";
-import connection from "./db/db.connection.js"
+import connection from "./db/db.connection.js";
 
 connection().then(()=>{
     app.listen(3000,()=>{
