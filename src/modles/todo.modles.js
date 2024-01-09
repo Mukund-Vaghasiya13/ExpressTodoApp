@@ -7,7 +7,7 @@ const TodoSchema = new mongoose.Schema({
         type:Schema.Types.ObjectId,
         ref: "User"
     },
-    todos:{
+    todo:{
         type:String
     }
 
