@@ -1,10 +1,10 @@
-import mongoose, { Schema, SchemaTypes } from "mongoose";
+import mongoose from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const TodoSchema = new mongoose.Schema({
 
     refId:{
-        type:Schema.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
     todo:{

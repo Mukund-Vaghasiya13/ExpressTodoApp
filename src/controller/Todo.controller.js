@@ -8,9 +8,9 @@ const isUserLofgInOrNot = async (user)=>{
     if(!user){
         throw new ApiError(400,"User is not authorized")
     }
-    
-    const newUser = await User.findById(user._id).select("-password")
-    
+    // console.log(user)
+    const newUser = await User.findById(user).select("-password")
+    // console.log(newUser)
     if(!newUser){
         throw new ApiError(400,"User is not vaild or not Found")
     }
@@ -21,7 +21,7 @@ const isUserLofgInOrNot = async (user)=>{
 const addTodo = asyncHandler(async (req,res)=>{
    const user = req.user
    const {todo} = req.body
-
+    // console.log(user)
    const ID = await isUserLofgInOrNot(user._id)
 
    const addedTask = await Todo.create({
@@ -45,6 +45,10 @@ const deleteTodo = asyncHandler( async (req,res)=>{
 
     const ID = await isUserLofgInOrNot(user._id)
 
+    if(!TodoID){
+        throw new ApiError(400,"Inavlid todo",false)
+    }
+
     const DeleteTodo = await Todo.findByIdAndDelete(TodoID)
 
     if(!DeleteTodo){
@@ -56,6 +60,34 @@ const deleteTodo = asyncHandler( async (req,res)=>{
     )
 })
 
+const UpdateTodo = asyncHandler(async (req,res)=>{
+    const user = req.user
+    const {todo,TodoID} = req.body
+
+    const ID = await isUserLofgInOrNot(user._id)
+
+    if(!TodoID || !todo){
+        throw new ApiError(400,"Inavlid todo",false)
+    }
+
+    const UpdatedTodo = await Todo.findByIdAndUpdate(TodoID,{
+        $set:{
+            todo:todo
+        }
+    },{new:true})
+
+
+    if(!UpdateTodo){
+        throw new ApiError(400,"Updating Problem",false)
+    }
+
+    res.status(201).json(
+        new ApiResponseHnadler(201,null,"Update Success",true)
+    )
+})
+
 export{
-    addTodo
+    addTodo,
+    deleteTodo,
+    UpdateTodo
 }
