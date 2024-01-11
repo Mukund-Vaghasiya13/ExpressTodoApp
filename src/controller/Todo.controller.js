@@ -3,6 +3,7 @@ import { Todo } from "../modles/todo.modles.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
 import { ApiError } from "../utils/apiErrorHandler.js";
 import { ApiResponseHnadler } from "../utils/apiResponseHandler.js";
+import { Types } from "mongoose";
 
 const isUserLofgInOrNot = async (user)=>{
     if(!user){
@@ -86,8 +87,40 @@ const UpdateTodo = asyncHandler(async (req,res)=>{
     )
 })
 
+const GetTodos = asyncHandler(async(req,res)=>{
+    const user = req.user
+    const ID = await isUserLofgInOrNot(user._id)
+    console.log(ID)
+    const JoinData = await User.aggregate([
+        {
+            //In Todo match Login Id with docs
+            $match:{
+                _id: new Types.ObjectId(ID)
+            }
+        },{
+            // lookup from useres becaus i want to join user to todo 
+            $lookup:{
+                from:"todos",
+                localField: "_id",
+                foreignField: "refId",
+                as:"Todo"
+            }
+        },{
+            $addFields:{
+                Todo:{
+                    $first:"$Todo"
+                }
+            }
+        }
+    ])
+
+    console.log(JoinData)
+    res.status(200).json({"ok":"aggri"})
+})
+
 export{
     addTodo,
     deleteTodo,
-    UpdateTodo
+    UpdateTodo,
+    GetTodos
 }

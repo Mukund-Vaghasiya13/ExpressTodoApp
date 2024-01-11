@@ -1,4 +1,4 @@
-import { UpdateTodo, addTodo, deleteTodo } from "../controller/Todo.controller.js";
+import { GetTodos, UpdateTodo, addTodo, deleteTodo } from "../controller/Todo.controller.js";
 import { Router } from "express";
 import { UserAuthOrNot } from "../middleware/isUserAuthOrNot.js";
 
@@ -20,5 +20,9 @@ router.route("/todo/update").post(
     UpdateTodo
 )
 
+router.route("/todo/gettodo").get(
+    UserAuthOrNot,
+    GetTodos
+)
 
 export default router
