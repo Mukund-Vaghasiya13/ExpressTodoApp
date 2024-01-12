@@ -91,12 +91,25 @@ const GetTodos = asyncHandler(async(req,res)=>{
     const user = req.user
     const ID = await isUserLofgInOrNot(user._id)
     console.log(ID)
+
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let deleted =  await Todo.deleteMany({ createdAt: { $lt: today } });   
+    
+    if(deleted > 0){
+      return res.status(200).json(
+            new ApiResponseHnadler(200,[],"Todo",true)
+        )
+    }
+
     const todo = await Todo.find({
         refId:ID
     })
 
    console.log(todo)
-    res.status(200).json({"ok":"aggri"})
+    return res.status(200).json(
+        new ApiResponseHnadler(200,todo,"Todo",true)
+    )
 })
 
 export{
