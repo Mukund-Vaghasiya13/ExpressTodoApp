@@ -91,30 +91,11 @@ const GetTodos = asyncHandler(async(req,res)=>{
     const user = req.user
     const ID = await isUserLofgInOrNot(user._id)
     console.log(ID)
-    const JoinData = await User.aggregate([
-        {
-            //In Todo match Login Id with docs
-            $match:{
-                _id: new Types.ObjectId(ID)
-            }
-        },{
-            // lookup from useres becaus i want to join user to todo 
-            $lookup:{
-                from:"todos",
-                localField: "_id",
-                foreignField: "refId",
-                as:"Todo"
-            }
-        },{
-            $addFields:{
-                Todo:{
-                    $first:"$Todo"
-                }
-            }
-        }
-    ])
+    const todo = await Todo.find({
+        refId:ID
+    })
 
-    console.log(JoinData)
+   console.log(todo)
     res.status(200).json({"ok":"aggri"})
 })
 
