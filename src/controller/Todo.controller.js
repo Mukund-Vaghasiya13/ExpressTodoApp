@@ -106,7 +106,6 @@ const GetTodos = asyncHandler(async(req,res)=>{
         refId:ID
     })
 
-   console.log(todo)
     return res.status(200).json(
         new ApiResponseHnadler(200,todo,"Todo",true)
     )
