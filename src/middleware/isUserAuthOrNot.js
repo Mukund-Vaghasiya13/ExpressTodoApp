@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 
 const UserAuthOrNot = asyncHandler((req,res,next)=>{
     try{
-        const token = req.header("Authorization")?.replace("Bearer","") || req.cookies.AccessToken
+        const token = req.header("Authorization")?.replace("Bearer ","") || req.cookies.AccessToken
         if(!token){
             console.log("No token")
             next()
