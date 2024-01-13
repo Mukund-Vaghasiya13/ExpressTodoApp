@@ -11,7 +11,6 @@ const UserAuthOrNot = asyncHandler((req,res,next)=>{
 
         const user = jwt.verify(token,"mukundvaghasiya")
 
-        console.log(user)
         req.user = user
         next()
 
