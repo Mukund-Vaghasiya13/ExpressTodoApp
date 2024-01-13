@@ -9,9 +9,9 @@ const isUserLofgInOrNot = async (user)=>{
     if(!user){
         throw new ApiError(400,"User is not authorized")
     }
-    // console.log(user)
+  
     const newUser = await User.findById(user).select("-password")
-    // console.log(newUser)
+   
     if(!newUser){
         throw new ApiError(400,"User is not vaild or not Found")
     }
@@ -22,7 +22,7 @@ const isUserLofgInOrNot = async (user)=>{
 const addTodo = asyncHandler(async (req,res)=>{
    const user = req.user
    const {todo} = req.body
-    // console.log(user)
+   
    const ID = await isUserLofgInOrNot(user._id)
 
    const addedTask = await Todo.create({
@@ -90,7 +90,6 @@ const UpdateTodo = asyncHandler(async (req,res)=>{
 const GetTodos = asyncHandler(async(req,res)=>{
     const user = req.user
     const ID = await isUserLofgInOrNot(user._id)
-    console.log(ID)
 
     let today = new Date();
     today.setHours(0, 0, 0, 0);
