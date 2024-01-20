@@ -7,7 +7,7 @@ import cors from "cors"
 const app = express()
 
 app.use(cors({
-    origin: "*",
+    origin: "https://react-todo-app-silk-delta.vercel.app",
     credentials: true
 }))
 
