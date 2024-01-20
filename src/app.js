@@ -20,4 +20,8 @@ app.use(cookieParser())
 app.use("/api/todo/v1",router)
 app.use("/api/todo/v1/Todos",TodoRoute)
 
+app.get("/helper",(req,res)=>{
+    res.send("👻👻👻👻👻")
+})
+
 export default app
