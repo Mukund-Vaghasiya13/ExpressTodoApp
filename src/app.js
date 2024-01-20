@@ -3,12 +3,13 @@ import { router } from "./routes/user.route.js";
 import cookieParser from "cookie-parser";
 import TodoRoute from "./routes/todo.route.js";
 import cors from "cors"
+
+const app = express()
+
 app.use(cors({
     origin: "*",
     credentials: true
 }))
-
-const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded())
