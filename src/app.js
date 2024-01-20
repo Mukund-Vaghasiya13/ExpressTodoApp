@@ -2,6 +2,11 @@ import express from "express";
 import { router } from "./routes/user.route.js";
 import cookieParser from "cookie-parser";
 import TodoRoute from "./routes/todo.route.js";
+import cors from "cors"
+app.use(cors({
+    origin: "*",
+    credentials: true
+}))
 
 const app = express()
 
